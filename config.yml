@@ -1,0 +1,8 @@
+TG:
+  token: ""
+  chatID: ""
+IG:
+  username: ""
+  password: ""
+pollingPeriod: 5m # how frequently app will check data to crosspost
+crosspostNewOnly: true # skip all stories posted before app start?
