@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"io/ioutil"
 	"log"
@@ -82,8 +83,8 @@ func doIGAuth(login, pass string) (instaHandle *goinsta.Instagram, err error) {
 }
 
 func storyData(gram *goinsta.Instagram) (stories []Story, err error) {
-	log.Println("Fetching IG story data...")
-	defer log.Println("Done fetching IG story data")
+	//log.Println("Fetching IG story data...")
+	//defer log.Println("Done fetching IG story data")
 	myID := gram.Account.ID
 
 	tray, err := gram.Timeline.Stories()
@@ -139,10 +140,11 @@ func shareToTG(handle *tgbotapi.BotAPI, chatID int64, stories []Story) {
 }
 
 func main() {
-	cfgFileName := "config.yml"
-	cfgBytes, err := ioutil.ReadFile(cfgFileName)
+	cfgFilePath := flag.String("cfg", "config.yml", "path to config file")
+	flag.Parse()
+	cfgBytes, err := ioutil.ReadFile(*cfgFilePath)
 	if err != nil {
-		log.Printf("Config file '%v' read error: %v", cfgFileName, err)
+		log.Printf("Config file '%v' read error: %v", *cfgFilePath, err)
 		return
 	}
 
